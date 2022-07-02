@@ -1,26 +1,20 @@
 import React from "react";
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./App";
+import Login from "./pages/Login";
 import User from "./pages/User";
-
-export const AppContext = React.createContext();
+import PersistLogin from "./components/PersistLogin";
 
 export default function Router() {
-  const [accessToken, setAccessToken] = React.useState("");
-
   return (
-    <AppContext.Provider value={{ accessToken, setAccessToken }}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route
-            path="/user"
-            element={accessToken ? <User /> : <Navigate to="/" />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </AppContext.Provider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<PersistLogin />}>
+          <Route path="/user" element={<User />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

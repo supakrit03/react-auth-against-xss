@@ -1,15 +1,16 @@
 import React from "react";
-
 import { Container } from "react-bootstrap";
-import UserInfo from "../components/UserInfo";
+import LoginForm from "../components/LoginForm";
 
-export default function User() {
+const Login = () => {
   return (
     <Container
       style={{ minHeight: "100vh" }}
       className="d-flex flex-row justify-content-center align-items-center"
     >
-      <UserInfo />
+      <LoginForm />
     </Container>
   );
-}
+};
+
+export default Login;

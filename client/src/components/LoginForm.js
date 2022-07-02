@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/auth";
 
 import { login } from "../services/login";
-
-import { AppContext } from "../Router";
 
 export default function LoginForm() {
   const navigate = useNavigate();
 
-  const { setAccessToken } = React.useContext(AppContext);
+  const { setAccessToken } = useContext(AuthContext);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const resp = await login({
-      email: e.target.email.value,
-      password: e.target.password.value,
-    });
+    try {
+      const resp = await login({
+        email: e.target.email.value,
+        password: e.target.password.value,
+      });
 
-    setAccessToken(resp.data.access_token);
-    navigate("/user", { replace: true });
+      setAccessToken(resp.data.access_token);
+      navigate("/user", { replace: true });
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   return (
